@@ -1,0 +1,29 @@
+# ex: ts=2 sw=2 et filetype=bash
+
+alias diff="diff -ubBw"
+alias less="less -R"
+alias tmux-attach="tmux attach &> /dev/null || tmux"
+alias dsh="dsh -r ssh -M"
+alias npx="docker run -it --rm -v ${PWD}:/workspace -w /workspace node npx"
+alias k="kubectl"
+alias tf="terraform"
+alias mount-gdrive="rclone mount gd: ${HOME}/gdrive --allow-non-empty --vfs-cache-mode writes --daemon"
+alias umount-gdrive="fusermount -qzu ${HOME}/gdrive"
+
+if [ "$(uname)" == "Darwin" ]; then
+  # set for Mac
+  export CLICOLOR=1
+  export LSCOLORS=ExGxFxdaCxdAdAhbadacec
+  alias ls="/bin/ls -G"
+else
+  alias ls="/bin/ls --color=always"
+fi
+
+mkvenv() {
+  if [ -f "${HOME}/.pyenv/versions/${1}/bin/python" ]; then
+    pipenv --python "${HOME}/.pyenv/versions/${1}/bin/python"
+  else
+    echo "'${HOME}/.pyenv/versions/${1}/bin/python' not found." >&2
+    return 1
+  fi
+}

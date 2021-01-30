@@ -1,0 +1,51 @@
+# ex: ts=2 sw=2 et filetype=bash
+
+# ANSI color codes
+bold="\e[1m"
+reset="\e[0m"
+black="\e[030m"
+red="\e[031m"
+green="\e[032m"
+yellow="\e[033m"
+blue="\e[034m"
+magenta="\e[035m"
+cyan="\e[036m"
+white="\e[037m"
+
+
+prompt_git() {
+  # Check if the current directory is in a Git repository.
+  if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" == 'true' ]; then
+    local s=''
+    local b=''
+
+    # Ensure the index is up to date.
+    git update-index --really-refresh -q &>/dev/null
+
+    # Get the short symbolic ref.
+    # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
+    # Otherwise, just give up.
+    b="$( \
+      git symbolic-ref --quiet --short HEAD 2> /dev/null \
+        || git rev-parse --short HEAD 2> /dev/null \
+        || echo '(unknown)')"
+
+    # Check for unstaged/untracked changes.
+    if [ -n "$(git ls-files --others --exclude-standard)" ] || \
+       ! $(git diff --quiet --ignore-submodules && git diff --quiet --ignore-submodules --cached)
+    then
+      s='*'
+    fi
+
+    echo -e " [${magenta}\uf418 ${b}${yellow}${s}${reset}]"
+  else
+    return
+  fi
+}
+
+
+# Set the terminal title to the current working directory.
+PS1=""
+PS1+="┌── ${bold}${blue}\W${reset}\$(prompt_git)\n"
+PS1+="└─❯ "
+export PS1
