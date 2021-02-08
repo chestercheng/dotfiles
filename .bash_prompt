@@ -13,31 +13,38 @@ cyan="\e[036m"
 white="\e[037m"
 
 
-prompt_git() {
+_prompt_git() {
   # Check if the current directory is in a Git repository.
   if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" == 'true' ]; then
+    local t=''
     local s=''
-    local b=''
+    local c=''
 
     # Ensure the index is up to date.
     git update-index --really-refresh -q &>/dev/null
 
     # Get the short symbolic ref.
-    # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
+    # If HEAD isn't a symbolic ref, get the short SHA for the latest commit
     # Otherwise, just give up.
-    b="$( \
-      git symbolic-ref --quiet --short HEAD 2> /dev/null \
-        || git rev-parse --short HEAD 2> /dev/null \
-        || echo '(unknown)')"
+    if s=$(git symbolic-ref --quiet --short HEAD 2> /dev/null); then
+      t='\uf418'
+    elif s=$(git describe --tags --abbrev=0 2> /dev/null); then
+      t='\uf02b'
+    elif s=$(git rev-parse --short HEAD 2> /dev/null); then
+      t='\ue729'
+    else
+      s='(unknown)'
+      t='\uf29c'
+    fi
 
     # Check for unstaged/untracked changes.
     if [ -n "$(git ls-files --others --exclude-standard)" ] || \
        ! $(git diff --quiet --ignore-submodules && git diff --quiet --ignore-submodules --cached)
     then
-      s='*'
+      c='*'
     fi
 
-    echo -e " [${magenta}\uf418 ${b}${yellow}${s}${reset}]"
+    echo -e " [${magenta}${t} ${s}${yellow}${c}${reset}]"
   else
     return
   fi
@@ -46,6 +53,6 @@ prompt_git() {
 
 # Set the terminal title to the current working directory.
 PS1=""
-PS1+="┌── ${bold}${blue}\W${reset}\$(prompt_git)\n"
+PS1+="┌── ${bold}${blue}\W${reset}\$(_prompt_git)\n"
 PS1+="└─❯ "
 export PS1
