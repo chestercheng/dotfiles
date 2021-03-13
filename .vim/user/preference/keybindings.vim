@@ -12,7 +12,7 @@ imap <ESC>f <Char-15>:normal w<cr>
 " ####################
 " # Normal mode maps #
 " ####################
-nmap <silent> <F2> :NERDTreeToggle<cr>
+nmap <silent> <F2> :NERDTree<cr>
 nmap <silent> <F3> <plug>(lcn-menu)
 
 nmap <silent> <leader><ESC> :let @/=""<cr>

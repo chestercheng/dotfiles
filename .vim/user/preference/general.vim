@@ -27,5 +27,3 @@ set t_Co=256
 set hlsearch
 set nu
 set laststatus=2
-
-let g:fakeclip_terminal_multiplexer_type = 'tmux'

@@ -1,6 +1,7 @@
 # ex: ts=2 sw=2 et filetype=bash
 
 alias diff="diff -ubBw"
+alias tree="tree -C"
 alias less="less -R"
 alias tmux-attach="tmux attach &> /dev/null || tmux"
 alias dsh="dsh -r ssh -M"
@@ -9,6 +10,8 @@ alias k="kubectl"
 alias tf="terraform"
 alias mount-gdrive="rclone mount gd: ${HOME}/gdrive --allow-non-empty --vfs-cache-mode writes --daemon"
 alias umount-gdrive="fusermount -qzu ${HOME}/gdrive"
+alias d="devenv"
+complete -F _devenv d
 
 if [ "$(uname)" == "Darwin" ]; then
   # set for Mac
@@ -16,14 +19,5 @@ if [ "$(uname)" == "Darwin" ]; then
   export LSCOLORS=ExGxFxdaCxdAdAhbadacec
   alias ls="/bin/ls -G"
 else
-  alias ls="/bin/ls --color=always"
+  alias ls="/bin/ls --color=auto"
 fi
-
-mkvenv() {
-  if [ -f "${HOME}/.pyenv/versions/${1}/bin/python" ]; then
-    pipenv --python "${HOME}/.pyenv/versions/${1}/bin/python"
-  else
-    echo "'${HOME}/.pyenv/versions/${1}/bin/python' not found." >&2
-    return 1
-  fi
-}

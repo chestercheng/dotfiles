@@ -1,12 +1,13 @@
 [user]
-	email = chester7864@gmail.com
-	name = chestercheng
+  email = chester7864@gmail.com
+  name = chestercheng
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
 [push]
-  default = simple
+  default = current
 [pull]
+  default = current
   rebase = true
 [branch]
   autosetuprebase = always
@@ -32,3 +33,16 @@
   added = yellow
   changed = green
   untracked = cyan
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false
+  trustExitCode = true
+[rebase]
+  autoStash = true
+[alias]
+  co = checkout
+  dt = difftool
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v

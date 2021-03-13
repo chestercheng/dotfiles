@@ -50,9 +50,15 @@ _prompt_git() {
   fi
 }
 
+_prompt_devenv() {
+  if [ -n "${DEVENVFLAVOR}" ]; then
+    echo -e " [${cyan}\uf6f3 ${DEVENVFLAVOR}${reset}]"
+  fi
+}
+
 
 # Set the terminal title to the current working directory.
 PS1=""
-PS1+="┌── ${bold}${blue}\W${reset}\$(_prompt_git)\n"
+PS1+="┌── ${bold}${blue}\W${reset}\$(_prompt_git)\$(_prompt_devenv)\n"
 PS1+="└─❯ "
 export PS1
