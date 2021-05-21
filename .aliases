@@ -3,7 +3,7 @@
 alias diff="diff -ubBw"
 alias tree="tree -C"
 alias less="less -R"
-alias tmux-attach="tmux attach &> /dev/null || tmux"
+alias tmux-attach="tmux attach -d &> /dev/null || tmux"
 alias dsh="dsh -r ssh -M"
 alias npx="docker run -it --rm -v ${PWD}:/workspace -w /workspace node npx"
 alias k="kubectl"

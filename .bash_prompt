@@ -28,7 +28,7 @@ _prompt_git() {
     # Otherwise, just give up.
     if s=$(git symbolic-ref --quiet --short HEAD 2> /dev/null); then
       t='\uf418'
-    elif s=$(git describe --tags --abbrev=0 2> /dev/null); then
+    elif s=$(git describe --exact-match --tags --abbrev=0 2> /dev/null); then
       t='\uf02b'
     elif s=$(git rev-parse --short HEAD 2> /dev/null); then
       t='\ue729'
@@ -38,7 +38,7 @@ _prompt_git() {
     fi
 
     # Check for unstaged/untracked changes.
-    if [ -n "$(git ls-files --others --exclude-standard)" ] || \
+    if [ -n "$(git ls-files --others --exclude-standard 2> /dev/null)" ] || \
        ! $(git diff --quiet --ignore-submodules && git diff --quiet --ignore-submodules --cached)
     then
       c='*'

@@ -15,7 +15,7 @@ export PATH=$HOME/.local/bin:$PATH
 . ~/.bash_prompt
 
 
-# My hack space
+# devenv
 [[ -s "${HOME}/.devenv/scripts/init" ]] && . "${HOME}/.devenv/scripts/init"
 
 
