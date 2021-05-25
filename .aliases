@@ -8,8 +8,8 @@ alias dsh="dsh -r ssh -M"
 alias npx="docker run -it --rm -v ${PWD}:/workspace -w /workspace node npx"
 alias k="kubectl"
 alias tf="terraform"
-alias mount-gdrive="rclone mount gd: ${HOME}/gdrive --allow-non-empty --vfs-cache-mode writes --daemon"
-alias umount-gdrive="fusermount -qzu ${HOME}/gdrive"
+alias mount-gdrive="rclone mount gdrive: ${HOME}/Documents/gdrive --allow-non-empty --vfs-cache-mode writes --daemon"
+alias umount-gdrive="fusermount -qzu ${HOME}/Documents/gdrive"
 alias d="devenv"
 complete -F _devenv d
 

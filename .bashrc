@@ -6,6 +6,7 @@ export LC_CTYPE="UTF-8"
 export LANG="en_US.UTF-8"
 export TERM='xterm-256color'
 
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export PATH=$HOME/.local/bin:$PATH
 
 # Load the shell dotfiles, and then some:
