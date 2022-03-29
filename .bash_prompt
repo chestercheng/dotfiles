@@ -59,6 +59,6 @@ _prompt_devenv() {
 
 # Set the terminal title to the current working directory.
 PS1=""
-PS1+="┌── ${bold}${blue}\W${reset}\$(_prompt_git)\$(_prompt_devenv)\n"
-PS1+="└─❯ "
+PS1+="${bold}${blue}\W${reset}\$(_prompt_git)\$(_prompt_devenv) ${bold}${black}@\h${reset}\n"
+PS1+="> "
 export PS1
